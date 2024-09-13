@@ -1,0 +1,58 @@
+From 28a97c3cd0ba71523750e9ea19c2bd93d8d7a095 Mon Sep 17 00:00:00 2001
+From: wjyrich <1071633242@qq.com>
+Date: Sun, 8 Sep 2024 12:59:44 +0800
+Subject: [PATCH] install
+
+---
+ application.pro        | 10 +++++++++-
+ images/AmigaED.desktop | 11 +++++++++++
+ 2 files changed, 20 insertions(+), 1 deletion(-)
+ create mode 100644 images/AmigaED.desktop
+
+diff --git a/application.pro b/application.pro
+index acca2c5..168a67d 100644
+--- a/application.pro
++++ b/application.pro
+@@ -3,7 +3,7 @@ CONFIG += console qscintilla2 c++14 release
+ 
+ TARGET = AmigaED
+ TEMPLATE = app
+-
++INCLUDEPATH += $$PREFIX/include/x86_64-linux-gnu/qt5
+ macx {
+     QMAKE_POST_LINK = install_name_tool -change libqscintilla2_qt$${QT_MAJOR_VERSION}.13.dylib $$[QT_INSTALL_LIBS]/libqscintilla2_qt$${QT_MAJOR_VERSION}.13.dylib $(TARGET)
+ }
+@@ -40,3 +40,11 @@ DISTFILES += \
+ FORMS += \
+     prefsdialog.ui \
+     aboutdialog.ui
++LIBS += -L$$PREFIX/lib -lqscintilla2_qt5
++target.path = $$PREFIX/bin
++desktop.files = images/AmigaED.desktop
++desktop.path = $$PREFIX/share/applications/
++icons.path = $$PREFIX/share/icons/hicolor/apps/
++icons.files = images/aced-logo.png
++
++INSTALLS += target desktop icons
+\ No newline at end of file
+diff --git a/images/AmigaED.desktop b/images/AmigaED.desktop
+new file mode 100644
+index 0000000..51c0f7f
+--- /dev/null
++++ b/images/AmigaED.desktop
+@@ -0,0 +1,11 @@
++[Desktop Entry]
++Categories=Accessibility;Qt;Utility;
++Exec=AmigaED
++Name=AmigaED
++Name[zh_CN]=AmigaED
++Icon=aced-logo
++StartupNotify=false
++Terminal=false
++Type=Application
++GenericName=AmigaED
++Version=1.0
+\ No newline at end of file
+-- 
+2.43.4
+
